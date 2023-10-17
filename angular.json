@@ -10,9 +10,10 @@
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "inlineTemplate": true,
-          "inlineStyle": true,
-          "spec": false
+          "inlineTemplate": false,
+          "inlineStyle": false,
+          "spec": false,
+          "styleext": "scss"
         },
         "@schematics/angular:class": {
           "spec": false
@@ -47,9 +48,12 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+            ]
           },
           "configurations": {
             "production": {

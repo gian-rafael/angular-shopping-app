@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "gian_thiam",
+      "email": "gian.thiam01@gmail.com",
+      "password": "test1234",
+      "role": "user"
+    },
+    {
+      "username": "test",
+      "password": "test",
+      "role": "user",
+      "id": 2
+    }
+  ]
+}

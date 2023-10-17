@@ -1,0 +1,40 @@
+<section class="d-flex justify-content-center align-items-center row m-0">
+  <form class="rounded-md p-3 col-12 col-lg-4" [formGroup]="form" (ngSubmit)="login()">
+    <h1>Login</h1>
+    <div class="form-group mb-1">
+      <label>Username</label>
+      <input type="text" [class.border-danger]="usernameRequired" class="form-control" formControlName="username">
+      <small class="text-danger">
+        <span>&nbsp;</span>
+        <span *ngIf="usernameRequired">This field is required.</span>
+      </small>
+    </div>
+    <div class="form-group mb-1">
+      <label>Password</label>
+      <div class="input-group">
+        <input [type]="showPassword ? 'text' : 'password'" [class.border-danger]="passwordRequired" class="form-control"
+          formControlName="password">
+        <div class="input-group-append">
+          <button class="btn btn-dark" type="button" (mousedown)="toggleShowPassword(true)"
+            (mouseup)="toggleShowPassword(false)" (mouseleave)="toggleShowPassword(false)">
+            <i class="fa-solid fa-eye text-light"></i>
+          </button>
+        </div>
+      </div>
+      <small class="text-danger">
+        <span>&nbsp;</span>
+        <span *ngIf="passwordRequired">This field is required.</span>
+      </small>
+    </div>
+    <div class="custom-control custom-checkbox mb-2">
+      <input type="checkbox" class="custom-control-input" id="remember" formControlName="rememberUser">
+      <label class="custom-control-label" for="remember">Remember Me</label>
+    </div>
+    <button type="submit" class="btn btn-primary w-100"
+      [disabled]="(isLoggingIn$ | async) || form.invalid || form.pending">Login</button>
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="hasError$ | async">{{ errors$ | async}}</span>
+    </small>
+  </form>
+</section>

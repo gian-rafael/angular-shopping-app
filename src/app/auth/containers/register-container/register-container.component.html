@@ -1,0 +1,58 @@
+<section class="d-flex justify-content-center align-items-center row m-0">
+  <form class="rounded-md p-3 col-12 col-lg-4" [formGroup]="form" (ngSubmit)="register()">
+    <h1>Register</h1>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" [class.border-danger]="usernameRequired" id="username"
+        formControlName="username">
+      <small class="text-danger">
+        <span>&nbsp;</span>
+        <span *ngIf="usernameRequired">This field is required.</span>
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <div class="input-group">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
+          [class.border-danger]="passwordRequired">
+        <div class="input-group-append">
+          <button type="button" class="btn btn-dark" (mousedown)="toggleShowPassword(true)"
+            (mouseup)="toggleShowPassword(false)" (mouseleave)="toggleShowPassword(false)">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <small class="text-danger">
+        <span>&nbsp;</span>
+        <span *ngIf="passwordRequired">This field is required.</span>
+      </small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Confirm Password</label>
+      <div class="input-group">
+        <input [type]="showConfirmPassword ? 'text' : 'password'" type="text" class="form-control"
+          formControlName="confirmPassword" [class.border-danger]="confirmPasswordRequired">
+        <div class="input-group-append">
+          <button type="button" class="btn btn-dark" (mousedown)="toggleShowConfirmPassword(true)"
+            (mouseup)="toggleShowConfirmPassword(false)" (mouseleave)="toggleShowConfirmPassword(false)">
+            <i class="fa-solid fa-eye"></i>
+          </button>
+        </div>
+      </div>
+      <small class="text-danger">
+        <span>&nbsp;</span>
+        <span *ngIf="confirmPasswordRequired">This field is required.</span>
+        <span *ngIf="passwordMismatch && !confirmPasswordRequired">Passwords do not match.</span>
+      </small>
+    </div>
+    <button class="btn btn-primary w-100"
+      [disabled]="(isRegistering$ | async) || form.invalid || form.pending">Register</button>
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="hasError$ | async">{{ errors$ | async }}</span>
+    </small>
+  </form>
+</section>
