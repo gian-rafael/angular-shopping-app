@@ -1,0 +1,38 @@
+@import "node_modules/bootstrap/scss/bootstrap";
+
+:host {
+  @extend .col-6;
+  @extend .col-lg-4;
+
+  .card {
+    .product-image {
+      max-height: 150px;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .sold-out {
+    @extend .position-absolute,
+      .d-flex,
+      .flex-column,
+      .justify-content-center,
+      .align-items-center,
+      .h-100,
+      .w-100;
+    z-index: 15;
+
+    &-background {
+      @extend .position-absolute, .w-100, .h-100, .bg-light;
+      opacity: 0.8;
+    }
+
+    h4 {
+      position: relative;
+      z-index: 10;
+    }
+
+    top: 0;
+    left: 0;
+  }
+}

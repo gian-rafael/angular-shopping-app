@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-import { Observable, throwError, from, of, iif } from "rxjs";
-import { catchError, tap, take, switchMap } from "rxjs/operators";
+import { Observable, from, of, iif } from "rxjs";
+import { take, switchMap } from "rxjs/operators";
 
 import { LoginCredentials, RegistrationDetails } from "./models/auth";
 import { User } from "./models/user";

@@ -10,8 +10,19 @@ import { AppComponent } from "./app.component";
 
 import { AuthModule } from "./auth/auth.module";
 import { NavbarComponent } from "./components/navbar/navbar.component";
+import { ProductModule } from "./product/product.module";
+import { HomePageComponent } from "./pages/home-page/home-page.component";
 
 const routes: Routes = [
+  {
+    path: "",
+    redirectTo: "/home",
+    pathMatch: "full",
+  },
+  {
+    path: "home",
+    component: HomePageComponent,
+  },
   {
     path: "auth",
     loadChildren: () => AuthModule,
@@ -19,18 +30,23 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent],
+  declarations: [AppComponent, NavbarComponent, HomePageComponent],
   imports: [
     /** Angular Modules */
     BrowserModule,
     RouterModule.forRoot(routes),
 
+    /** Ngrx Modules */
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument(),
+
+    /** Custom Modules */
     AuthModule,
+    ProductModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

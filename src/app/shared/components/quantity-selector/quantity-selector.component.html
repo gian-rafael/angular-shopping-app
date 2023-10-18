@@ -1,0 +1,10 @@
+<div class="col-12 p-0">
+  <b class="text-secondary mb-2 d-inline-block text-uppercase">Qty</b>
+  <div class="input-group">
+    <div class="input-group-prepend btn-group">
+      <button [disabled]="disabledDecrement" type="button" (click)="decrement()" class="btn btn-sm btn-primary">-</button>
+      <button [disabled]="disabledIncrement" type="button" (click)="increment()" class="btn btn-sm btn-primary">+</button>
+    </div>
+    <input type="text" readonly class="form-control" [value]="value">
+  </div>
+</div>

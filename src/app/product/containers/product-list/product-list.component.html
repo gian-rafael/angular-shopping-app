@@ -1,0 +1,9 @@
+<section class="row m-0 p-0 my-2">
+  <ng-container>
+    <product-item *ngFor="let product of products$ | async" [product]="product" (addToCart)="onAddToCart($event)"
+      (addToWishlist)="onAddToWishlist($evennt)"></product-item>
+  </ng-container>
+  <ng-template #loading>
+
+  </ng-template>
+</section>
