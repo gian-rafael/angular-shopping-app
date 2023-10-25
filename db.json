@@ -12,6 +12,196 @@
       "password": "test",
       "role": "user",
       "id": 2
+    },
+    {
+      "username": "test_user",
+      "password": "test1234",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "username": "admin",
+      "password": "test1234",
+      "role": "admin",
+      "id": 4
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Shoes",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, accusantium consequuntur enim adipisci necessitatibus esse quisquam ullam obcaecati cum delectus ratione provident tenetur facilis tempore, deleniti architecto omnis dolore est expedita animi ipsum numquam vitae laboriosam nesciunt? Incidunt officia consectetur architecto inventore exercitationem repellendus non culpa adipisci, animi praesentium, delectus, ab sapiente quos est nihil rem dolores! Incidunt magni placeat ab autem unde doloribus fugiat impedit, deserunt obcaecati quia nemo ipsa ea maxime eligendi non asperiores commodi animi aspernatur est? Velit ipsum ullam eius vel cum asperiores reiciendis voluptatem natus deleniti dolor delectus dignissimos animi qui dolore aperiam, tempora sunt!",
+      "price": 1500,
+      "stocks": 95,
+      "img": "https://marquinashoemaker.com/cdn/shop/products/burg-loafer-front_2000x.jpg?v=1577814783"
+    },
+    {
+      "id": 2,
+      "name": "Sneakers",
+      "description": "Red Converse",
+      "price": 500,
+      "stocks": 5,
+      "img": "https://i8.amplience.net/i/jpl/jd_020793_a?qlt=92"
+    },
+    {
+      "img": "https://www.charleskeith.com/dw/image/v2/BCWJ_PRD/on/demandware.static/-/Sites-ck-products/default/dwc26523e3/images/hi-res/2023-L2-CK1-60920332-01-1.jpg?sw=756&sh=1008",
+      "name": "Heels",
+      "description": "Platform",
+      "price": 1800,
+      "stocks": 100,
+      "id": 3
+    },
+    {
+      "id": 4,
+      "name": "Boots",
+      "description": "Combat",
+      "price": 3000,
+      "stocks": 1,
+      "img": "https://thursdayboots.com/cdn/shop/files/2800x1080-Men-Explorer-BlackMatte-032123-1_800x533_crop_right.jpg?v=1680279295"
+    }
+  ],
+  "carts": [
+    {
+      "productId": 2,
+      "qty": 1,
+      "userId": 2,
+      "username": "test",
+      "id": 1
+    },
+    {
+      "productId": 4,
+      "qty": 1,
+      "userId": 2,
+      "username": "test",
+      "id": 2
+    }
+  ],
+  "wishlist": [
+    {
+      "productId": 2,
+      "userId": 3,
+      "username": "test_user",
+      "id": 4
+    }
+  ],
+  "transactions": [
+    {
+      "userId": 3,
+      "username": "test_user",
+      "order": [
+        {
+          "productId": 1,
+          "qty": 15,
+          "total": 7500
+        },
+        {
+          "productId": 2,
+          "qty": 5,
+          "total": 2500
+        }
+      ],
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "username": "gian_thiam",
+      "order": [
+        {
+          "productId": 1,
+          "qty": 3,
+          "total": 4500
+        }
+      ],
+      "id": 2
+    },
+    {
+      "userId": 2,
+      "username": "test",
+      "order": [
+        {
+          "productId": 1,
+          "qty": 33,
+          "total": 49500
+        }
+      ],
+      "id": 3
+    },
+    {
+      "userId": 2,
+      "username": "test",
+      "order": [
+        {
+          "productId": 4,
+          "qty": 1,
+          "total": 3000
+        }
+      ],
+      "id": 4
+    },
+    {
+      "userId": 2,
+      "username": "test",
+      "order": [
+        {
+          "productId": 1,
+          "qty": 15,
+          "total": 22500
+        },
+        {
+          "productId": 2,
+          "qty": 5,
+          "total": 2500
+        }
+      ],
+      "id": 5
+    },
+    {
+      "userId": 2,
+      "username": "test",
+      "order": [
+        {
+          "productId": 1,
+          "qty": 5,
+          "total": 7500
+        }
+      ],
+      "id": 6
+    },
+    {
+      "userId": 1,
+      "username": "gian_thiam",
+      "order": [
+        {
+          "productId": 2,
+          "qty": 3,
+          "total": 1500
+        }
+      ],
+      "id": 7
+    },
+    {
+      "userId": 2,
+      "username": "test",
+      "order": [
+        {
+          "productId": 2,
+          "qty": 5,
+          "total": 2500
+        }
+      ],
+      "id": 8
+    },
+    {
+      "userId": 1,
+      "username": "gian_thiam",
+      "order": [
+        {
+          "productId": 4,
+          "qty": 4,
+          "total": 12000
+        }
+      ],
+      "id": 9
     }
   ]
 }

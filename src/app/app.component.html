@@ -1,4 +1,4 @@
 <main>
-  <app-navbar [userIsLoggedIn]="userIsLoggedIn$ | async"></app-navbar>
+  <app-navbar [userIsLoggedIn]="userIsLoggedIn$ | async" [userRole]="userRole$ | async" (logout)="handleLogout()"></app-navbar>
   <router-outlet></router-outlet>
 </main>

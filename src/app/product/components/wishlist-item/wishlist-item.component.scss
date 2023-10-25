@@ -1,0 +1,15 @@
+.cart-item {
+  &-img {
+    max-height: 150px;
+    max-width: 150px;
+    object-fit: scale-down;
+    height: 100%;
+    overflow: hidden;
+    object-position: top;
+    position: relative;
+  }
+}
+
+.selected-item {
+  background-color: #bdd7ee;
+}

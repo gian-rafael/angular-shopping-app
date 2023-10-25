@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 
 import * as fromProducts from "../../store/reducers";
 import * as actions from "../../store/actions";
-import * as selectors from "../../store/selectors";
+import * as selectors from "../../store/selectors/product.selector";
 
 import { Product } from "../../models/product";
 import { AddToCartRequest } from "../../components/product-item/product-item.component";
@@ -31,5 +31,7 @@ export class ProductListComponent implements OnInit {
     this.store.dispatch(new actions.AddToCart(request));
   }
 
-  onAddToWishlist(product: Product) {}
+  onAddToWishlist(product: Product) {
+    this.store.dispatch(new actions.AddWishlist(product));
+  }
 }

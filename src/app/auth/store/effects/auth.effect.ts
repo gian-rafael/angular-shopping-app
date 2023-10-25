@@ -3,16 +3,21 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 
 import { of } from "rxjs";
-import { map, switchMap, catchError, filter } from "rxjs/operators";
+import { map, switchMap, catchError, filter, tap } from "rxjs/operators";
 
 import * as authActions from "../actions/auth.actions";
 
 import { AuthService } from "../../auth.service";
 import { UserDetails } from "../../models/user";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class AuthEffect {
-  constructor(private actions$: Actions, private authService: AuthService) {}
+  constructor(
+    private actions$: Actions,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   @Effect()
   init$ = this.actions$.pipe(
@@ -21,6 +26,8 @@ export class AuthEffect {
       const user = this.checkUserFromLocalStorage();
       if (user) {
         return new authActions.LoginSuccess(user);
+      } else {
+        return new authActions.LoginFail(null);
       }
     }),
     filter((action) => !!action)
@@ -34,6 +41,11 @@ export class AuthEffect {
     map((user) => {
       if (user) {
         let { password, ...details } = user;
+        if (details.role === "admin") {
+          this.router.navigate(["inventory"]);
+        } else {
+          this.router.navigate(["/"]);
+        }
         return new authActions.LoginSuccess(details);
       } else {
         return new authActions.LoginFail("Invalid Login Credentials");
@@ -58,6 +70,15 @@ export class AuthEffect {
     })
   );
 
+  @Effect({ dispatch: false })
+  logout$ = this.actions$.pipe(
+    ofType(authActions.LOGOUT),
+    tap(() => {
+      this.clearUserSession();
+      this.router.navigate(["/"]);
+    })
+  );
+
   private checkUserFromLocalStorage(): UserDetails {
     const userJson = localStorage.getItem("session");
     if (userJson) {
@@ -65,5 +86,9 @@ export class AuthEffect {
     } else {
       return null;
     }
+  }
+
+  private clearUserSession(): void {
+    localStorage.removeItem("session");
   }
 }

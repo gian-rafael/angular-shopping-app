@@ -1,0 +1,81 @@
+<section class="container mt-4">
+  <div class="d-flex mb-4 justify-content-between align-items-center w-100">
+    <h3 class="m-0">My Cart ({{(cart$ | async).length}})</h3>
+    <button class="btn btn-success" [disabled]="(selected$ | async).length === 0" (click)="handleCheckout()">Checkout
+      ({{(selected$ | async).length}})</button>
+  </div>
+  <ng-container *ngIf="!(loading$ | async); else loading">
+    <ng-container *ngIf="cart$ | async as cart">
+      <cart-item *ngFor="let cartItem of cart" [cartItem]="cartItem"
+        [selected]="(selected$ | async).includes(cartItem.id)" (itemSelect)="handleItemSelect($event)"
+        (removeFromCart)="handleRemoveFromCart($event)" (addToWishlist)="handleAddToWishlist($event)"
+        (quantityIncrement)="handleQuantityChange($event)" (quantityDecrement)="handleQuantityChange($event)">
+      </cart-item>
+    </ng-container>
+  </ng-container>
+  <ng-template #loading>
+    <div class="w-100 d-flex justify-content-center align-items-center mt-5">
+      <div class="spinner-border">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </ng-template>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" [id]="modalId" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Checkout</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" [disabled]="checkingOut$ | async">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of selectedItems$ | async">
+              <td>{{ item.product.name }}</td>
+              <td>{{ item.product.price | currency:" PHP " }}</td>
+              <td>{{ item.qty }}</td>
+              <td>{{ (item.product.price * item.qty) | currency:" PHP " }}</td>
+            </tr>
+            <tr class="bg-dark text-light font-weight-bold">
+              <td colspan="2"></td>
+              <td>Total: </td>
+              <td>
+                {{ totalPrice | async | currency: "PHP " }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <ng-container *ngIf="{ checkingOut: checkingOut$ | async } as data">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"
+            [disabled]="data.checkingOut">Close</button>
+          <button type="button" class="btn btn-primary" (click)="confirmCheckout()" [disabled]="data.checkingOut">
+            <ng-container *ngIf="data.checkingOut; else viewTotal">
+              <div class="spinner-border">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </ng-container>
+            <ng-template #viewTotal>
+              Checkout
+            </ng-template>
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

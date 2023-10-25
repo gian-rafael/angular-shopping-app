@@ -1,0 +1,71 @@
+<div class="container mt-4">
+  <h1 class="m-0 text-center">Shop Inventory</h1>
+  <div class="d-flex justify-content-between align-items-stretch my-4">
+    <div class="d-flex flex-column">
+      <div class="form-inline">
+        <input type="text" placeholder="Search For Products" class="form-control mr-2" #productSearch>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-end">
+      <button class="btn btn-primary mr-2" (click)="handleAddProduct()">Add Product</button>
+      <button class="btn btn-success" *ngIf="products$ | async as productList"
+        (click)="handleExport(productList)">Export</button>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="displayItems$ | async as products">
+      <ng-container *ngIf="products.length > 0; else noItems">
+        <tr *ngFor="let item of products">
+          <td> {{ item.id }} </td>
+          <td><img [src]="item.img" width="100" height="100" style="object-fit: contain;"></td>
+          <td> {{ item.name }} </td>
+          <td> {{ item.description }} </td>
+          <td> {{ item.price | currency : "PHP" }} </td>
+          <td> {{ item.stocks }} </td>
+          <td>
+            <button class="btn" type="button" (click)="handleUpdateProduct(item)"><i
+                class="fa-solid fa-pencil"></i></button>
+            <button class="btn" type="button" (click)="handleDeleteItem(item)"><i
+                class="fa-solid fa-trash"></i></button>
+          </td>
+        </tr>
+      </ng-container>
+      <ng-template #noItems>
+        <tr>
+          <td colspan="7" class="text-center">There are no items to display</td>
+        </tr>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" [id]="deleteModalId" tabindex="-1" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+        <button type="button" class="close" (click)="closeDeleteModal()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" *ngIf="itemForDelete">
+        You are about to delete {{ itemForDelete.name }}.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="confirmDelete()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Modal -->
+<add-product-modal [modalId]="addModalId" (onSubmit)="confirmAdd($event)"></add-product-modal>

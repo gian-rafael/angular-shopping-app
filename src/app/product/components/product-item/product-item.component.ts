@@ -1,11 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from "@angular/core";
 import { Product } from "../../models/product";
 import { FormBuilder } from "@angular/forms";
-
-export interface AddToCartRequest {
-  product: Product;
-  quantity: number;
-}
+import { AddToCartRequest } from "../../models/cart";
 
 @Component({
   selector: "product-item",
@@ -22,14 +18,12 @@ export class ProductItemComponent implements OnInit {
   });
 
   get isSoldOut() {
-    return this.product.stocks === 0;
+    return this.product.stocks <= 0;
   }
 
   constructor(private fb: FormBuilder) {}
 
-  ngOnInit() {
-    this.form.valueChanges.subscribe(console.log);
-  }
+  ngOnInit() {}
 
   onAddToCart() {
     const quantity = this.form.get("quantity").value || 0;
@@ -39,8 +33,6 @@ export class ProductItemComponent implements OnInit {
       quantity,
     };
 
-    console.log(item);
-
     this.addToCart.emit(item);
   }
 
@@ -48,3 +40,4 @@ export class ProductItemComponent implements OnInit {
     this.addToWishlist.emit(this.product);
   }
 }
+export { AddToCartRequest };

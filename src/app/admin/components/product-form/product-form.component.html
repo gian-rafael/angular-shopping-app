@@ -1,0 +1,53 @@
+<form class="" [formGroup]="form" (ngSubmit)="handleSubmit()">
+  <!-- Name -->
+  <div class="form-group mb-1">
+    <label>Product Name</label>
+    <input type="text" [class.border-danger]="false" class="form-control" formControlName="name">
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="false">This field is required.</span>
+    </small>
+  </div>
+  <!-- Description -->
+  <div class="form-group mb-1">
+    <label>Product Description</label>
+    <textarea type="text" [class.border-danger]="false" class="form-control" formControlName="description">
+  </textarea>
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="false">This field is required.</span>
+    </small>
+  </div>
+  <!-- Price -->
+  <div class="form-group mb-1">
+    <label>Price</label>
+    <input type="number" [class.border-danger]="false" class="form-control" formControlName="price">
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="false">This field is required.</span>
+    </small>
+  </div>
+  <!-- Image -->
+  <div class="form-group mb-1">
+    <label>Image</label>
+    <input type="text" [class.border-danger]="false" class="form-control" formControlName="image">
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="false">This field is required.</span>
+    </small>
+  </div>
+  <!-- Stocks -->
+  <div class="form-group mb-1">
+    <label>Stocks</label>
+    <input type="number" [class.border-danger]="false" class="form-control" formControlName="stocks">
+    <small class="text-danger">
+      <span>&nbsp;</span>
+      <span *ngIf="false">This field is required.</span>
+    </small>
+  </div>
+  <button type="submit" class="btn btn-primary w-100" [disabled]=" form.invalid || form.pending">Save</button>
+  <small class="text-danger">
+    <span>&nbsp;</span>
+    <span *ngIf="false"></span>
+  </small>
+</form>

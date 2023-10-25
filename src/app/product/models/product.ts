@@ -6,3 +6,5 @@ export interface Product {
   img: string;
   stocks: number;
 }
+
+export type ProductWithSales = Product & { sold: number; total: number };

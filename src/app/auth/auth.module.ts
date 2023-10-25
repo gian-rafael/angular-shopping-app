@@ -11,7 +11,9 @@ import { LoginContainerComponent } from "./containers/login-container/login-cont
 import { RegisterContainerComponent } from "./containers/register-container/register-container.component";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
+
 import { AuthGuard } from "./guards/auth.guard";
+import { guards } from "./guards";
 
 const routes: Routes = [
   {
@@ -46,6 +48,6 @@ const routes: Routes = [
     StoreModule.forFeature("auth", authStore.reducers),
   ],
   declarations: [LoginContainerComponent, RegisterContainerComponent],
-  providers: [AuthGuard],
+  providers: [...guards],
 })
 export class AuthModule {}

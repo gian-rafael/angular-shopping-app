@@ -5,7 +5,7 @@
       <h5 class="card-title"> {{product.name}} </h5>
       <h6 class="text-uppercase">Php {{product.price}}</h6>
     </div>
-    <h6 class="card-text"> {{product.description}} </h6>
+    <h6 class="card-text product-description" style="-webkit-box-orient: vertical;"> {{product.description}} </h6>
   </div>
   <div class="card-footer row align-items-end justify-content-between px-4 pb-3 position-relative">
     <quantity-selector formControlName="quantity" [max]="product.stocks" [isSoldOut]="isSoldOut"
@@ -15,7 +15,8 @@
     <div class="sold-out" *ngIf="isSoldOut">
       <div class="sold-out-background"></div>
       <h4>Out Of Stock</h4>
-      <button class="btn btn-primary position-relative" type="button" (click)="onAddToWishlist()">Add To Wishlist</button>
+      <button class="btn btn-primary position-relative" type="button" (click)="onAddToWishlist()">Add To
+        Wishlist</button>
     </div>
   </div>
 </form>

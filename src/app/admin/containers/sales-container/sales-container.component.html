@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h1 class="m-0 text-center">Sales</h1>
+  <div class="d-flex justify-content-between align-items-stretch my-4">
+    <div class="d-flex flex-column">
+      <div class="form-inline">
+        <input type="text" placeholder="Search For Products" class="form-control mr-2" #productSearch>
+      </div>
+    </div>
+    <div class="d-flex flex-wrap justify-content-end">
+      <button class="btn btn-success" *ngIf="sales$ | async as sales" (click)="handleExport(sales)">Export</button>
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let header of tableHeaders">{{ header }}</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="displayItems$ | async as items">
+      <tr *ngFor="let item of items">
+        <td> {{ item.id }} </td>
+        <td> {{ item.name }} </td>
+        <td> {{ item.price | currency : "PHP" }} </td>
+        <td> {{ item.stocks }} </td>
+        <td> {{ item.sold }} </td>
+        <td> {{ (item.total) | currency : "PHP" }} </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -13,7 +13,7 @@ export interface AuthState {
 const initialState: AuthState = {
   user: undefined,
   isLoggedIn: false,
-  isLoggingIn: false,
+  isLoggingIn: true,
   isRegistering: false,
   hasError: false,
   error: null,
@@ -24,12 +24,17 @@ export function reducer(
   action: loginActions.AuthActions
 ): AuthState {
   switch (action.type) {
+    case loginActions.AUTH_INIT: {
+      return { ...state, isLoggingIn: true };
+    }
+
     case loginActions.LOGIN: {
       return { ...state, isLoggingIn: true };
     }
     case loginActions.LOGIN_FAIL: {
       const error = action.payload;
-      return { ...state, isLoggingIn: false, hasError: true, error };
+      const hasError = error !== null;
+      return { ...state, isLoggingIn: false, hasError, error };
     }
     case loginActions.LOGIN_SUCCESS: {
       const user = action.payload;
@@ -42,6 +47,11 @@ export function reducer(
         user,
       };
     }
+
+    case loginActions.LOGOUT: {
+      return { ...state, user: null, isLoggedIn: false };
+    }
+
     case loginActions.REGISTER: {
       return { ...state, isRegistering: true, hasError: false, error: null };
     }

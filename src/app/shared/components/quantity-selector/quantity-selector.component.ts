@@ -17,14 +17,16 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from "@angular/forms";
 export class QuantitySelectorComponent implements ControlValueAccessor {
   constructor() {}
 
-  @Input() max: number;
-  @Input() min: number = 1;
+  @Input() max: number = 1;
+  @Input() min: number = Math.min(1, this.max);
   @Input() isSoldOut: boolean = false;
+  @Input() onIncrement?: Function = () => {};
+  @Input() onDecrement?: Function = () => {};
 
-  value: number = this.min;
+  @Input() value: number = this.min;
 
-  onChange: Function;
-  onTouched: Function;
+  onChange: Function = () => {};
+  onTouched: Function = () => {};
 
   get disabledIncrement() {
     return this.isSoldOut || (this.max && this.value + 1 > this.max);
@@ -46,14 +48,18 @@ export class QuantitySelectorComponent implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  increment() {
+  increment(event: Event) {
+    event.stopPropagation();
     this.value += 1;
+    this.onIncrement(this.value);
     this.onChange(this.value);
     this.onTouched();
   }
 
-  decrement() {
+  decrement(event: Event) {
+    event.stopPropagation();
     this.value -= 1;
+    this.onDecrement(this.value);
     this.onChange(this.value);
     this.onTouched();
   }

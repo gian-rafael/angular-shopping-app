@@ -7,10 +7,10 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a routerLink="/" class="nav-link">Home</a>
+      <li class="nav-item" *ngIf="userRole !== 'admin'">
+        <a routerLink="/" class="nav-link">Products</a>
       </li>
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Products
@@ -21,13 +21,28 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li>
-      <li class="nav-item" *ngIf="isUserLoggedIn">
-        <a class="nav-link" routerLink="/cart">My Cart</a>
-      </li>
-      <li class="nav-item" *ngIf="isUserLoggedIn">
-        <a class="nav-link" routerLink="/wishlist">My Wishlist</a>
-      </li>
+      </li> -->
+      <!-- If user is logged in -->
+      <ng-container *ngIf="userIsLoggedIn">
+
+        <!-- If user is admin -->
+        <ng-container *ngIf="userRole === 'admin'">
+          <li class="nav-item" *ngFor="let route of adminRoutes">
+            <a class="nav-link" [routerLink]="route.path">{{ route.name }}</a>
+          </li>
+        </ng-container>
+
+        <!-- If user is not admin -->
+        <ng-container *ngIf="userRole === 'user'">
+          <li class="nav-item" *ngFor="let route of userRoutes">
+            <a class="nav-link" [routerLink]="route.path">{{ route.name }}</a>
+          </li>
+        </ng-container>
+
+        <li class="nav-item">
+          <a (click)="onLogout()" class="nav-link">Logout</a>
+        </li>
+      </ng-container>
     </ul>
     <ul class="navbar-nav d-flex" *ngIf="!userIsLoggedIn">
       <li class="nav-item">

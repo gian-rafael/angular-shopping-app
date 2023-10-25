@@ -16,4 +16,16 @@ export class ProductService {
   getProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(this.PRODUCTS_ENDPOINT);
   }
+
+  addProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(this.PRODUCTS_ENDPOINT, product);
+  }
+
+  updateProduct(product: Product) {
+    return this.http.put(`${this.PRODUCTS_ENDPOINT}/${product.id}`, product);
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    return this.http.delete(`${this.PRODUCTS_ENDPOINT}/${id}`);
+  }
 }

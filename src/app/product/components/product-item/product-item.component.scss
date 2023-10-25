@@ -5,10 +5,19 @@
   @extend .col-lg-4;
 
   .card {
+    min-height: 24rem;
+    
     .product-image {
       max-height: 150px;
       width: 100%;
-      object-fit: cover;
+      object-fit: scale-down;
+    }
+
+    .product-description {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
     }
   }
 

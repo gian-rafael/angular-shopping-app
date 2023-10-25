@@ -1,0 +1,15 @@
+<div class="modal fade" [id]="modalId" tabindex="-1" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pb-0">
+        <product-form [form]="form" (onSubmit)="handleSubmit()"></product-form>
+      </div>
+    </div>
+  </div>
+</div>

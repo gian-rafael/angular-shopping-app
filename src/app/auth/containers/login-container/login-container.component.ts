@@ -45,7 +45,6 @@ export class LoginContainerComponent implements OnInit {
   }
 
   login() {
-    console.log(this.form.value);
     this.store.dispatch(new Login(this.form.value));
   }
 

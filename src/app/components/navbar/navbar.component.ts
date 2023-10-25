@@ -1,5 +1,16 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { UserRole } from "src/app/auth/models/user";
 
+interface NavRoute {
+  name: string;
+  path: string;
+}
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
@@ -8,6 +19,34 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 })
 export class NavbarComponent {
   @Input() userIsLoggedIn: boolean = false;
+  @Input() userRole: UserRole;
+  @Output() logout = new EventEmitter();
+
+  readonly userRoutes: NavRoute[] = [
+    {
+      name: "My Cart",
+      path: "/cart"
+    },
+    {
+      name: "My Wishlist",
+      path: "/wishlist"
+    },
+  ]
+
+  readonly adminRoutes: NavRoute[] = [
+    {
+      name: "Inventory",
+      path: "/inventory"
+    },
+    {
+      name: "Sales",
+      path: "/sales"
+    },
+  ]
 
   constructor() {}
+
+  onLogout() {
+    this.logout.emit();
+  }
 }
