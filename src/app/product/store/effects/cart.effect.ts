@@ -15,6 +15,7 @@ import { CartService } from "../../services/cart.service";
 import { Order, Transaction } from "../../models/transaction";
 import { Product } from "../../models/product";
 import { Router } from "@angular/router";
+import { ToastService } from "src/app/toast.service";
 
 @Injectable()
 export class CartEffect {
@@ -22,7 +23,8 @@ export class CartEffect {
     private actions$: Actions,
     private authStore: Store<fromAuthStore.AppAuthState>,
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   @Effect()
@@ -50,7 +52,14 @@ export class CartEffect {
           this.router.navigate(["/auth"]);
           throw new Error("User Not Logged In");
         }),
-        map((cartItem) => new cartActions.AddToCartSuccess(cartItem)),
+        map((cartItem) => {
+          this.toastService.showToast({
+            description: "Item added to cart.",
+            title: "Add To Cart",
+            type: "success",
+          });
+          return new cartActions.AddToCartSuccess(cartItem);
+        }),
         catchError((error) => of(new cartActions.AddToCartFail(error)))
       )
     ),

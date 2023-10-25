@@ -29,6 +29,7 @@ import { SalesPageComponent } from "./pages/sales-page/sales-page.component";
 import { InventoryPageComponent } from "./pages/inventory-page/inventory-page.component";
 import { AdminModule } from "./admin/admin.module";
 import { UpdateProductPageComponent } from "./pages/update-product-page/update-product-page.component";
+import { ToastComponent } from './components/toast/toast.component';
 
 const routes: Routes = [
   {
@@ -119,6 +120,7 @@ function logout(reducer) {
     SalesPageComponent,
     InventoryPageComponent,
     UpdateProductPageComponent,
+    ToastComponent,
   ],
   imports: [
     /** Angular Modules */

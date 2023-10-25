@@ -1,13 +1,19 @@
 .cart-item {
   &-img {
     max-height: 150px;
-    max-width: 150px;
     object-fit: scale-down;
     height: 100%;
     overflow: hidden;
     object-position: top;
     position: relative;
   }
+}
+
+.product-description {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
 .selected-item {
