@@ -25,7 +25,7 @@ export function reducer(
 ): AuthState {
   switch (action.type) {
     case loginActions.AUTH_INIT: {
-      return { ...state, isLoggingIn: true };
+      return { ...state, isLoggingIn: true, error: null };
     }
 
     case loginActions.LOGIN: {

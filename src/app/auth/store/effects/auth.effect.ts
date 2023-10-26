@@ -89,6 +89,9 @@ export class AuthEffect {
         this.router.navigate(["/"]);
         return new authActions.LoginSuccess(details);
       } else {
+        this.toastService.showToast(
+          ErrorMessages.customError("Username is already taken.")
+        );
         return new authActions.RegisterFail("Username is already taken.");
       }
     }),

@@ -8,6 +8,7 @@ import { RegistrationDetails } from "../../models/auth";
 import { Observable } from "rxjs";
 
 import * as authSelectors from "../../store/selectors";
+import * as authActions from "../../store/actions";
 
 @Component({
   selector: "app-register-container",
@@ -19,9 +20,9 @@ export class RegisterContainerComponent implements OnInit {
   showConfirmPassword = false;
 
   form = this.fb.group({
-    username: ["", [Validators.required], []],
+    username: ["", [Validators.required]],
     password: ["", [Validators.required]],
-    confirmPassword: "",
+    confirmPassword: ["", [Validators.required]],
   });
 
   get usernameRequired() {
@@ -60,6 +61,8 @@ export class RegisterContainerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new authActions.AuthInit());
+
     this.form
       .get("confirmPassword")
       .setValidators([
