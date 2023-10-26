@@ -3,20 +3,34 @@ import { Injectable } from "@angular/core";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 
 import { of } from "rxjs";
-import { map, switchMap, catchError, filter, tap } from "rxjs/operators";
+import {
+  map,
+  switchMap,
+  catchError,
+  filter,
+  tap,
+  repeat,
+} from "rxjs/operators";
 
 import * as authActions from "../actions/auth.actions";
 
 import { AuthService } from "../../auth.service";
 import { UserDetails } from "../../models/user";
 import { Router } from "@angular/router";
+import { ToastService } from "src/app/toast.service";
+import {
+  ErrorMessages,
+  InfoMessages,
+  SuccessMessages,
+} from "src/app/components/toast/toast.constants";
 
 @Injectable()
 export class AuthEffect {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   @Effect()
@@ -46,12 +60,20 @@ export class AuthEffect {
         } else {
           this.router.navigate(["/"]);
         }
+        this.toastService.showToast(SuccessMessages.login);
         return new authActions.LoginSuccess(details);
       } else {
+        this.toastService.showToast(
+          ErrorMessages.customError("Invalid Login Credentials")
+        );
         return new authActions.LoginFail("Invalid Login Credentials");
       }
     }),
-    catchError(() => of(new authActions.LoginFail("An Error Has Occured")))
+    catchError((error) => {
+      this.toastService.showToast(ErrorMessages.customError(error.message));
+      return of(new authActions.LoginFail("An Error Has Occured"));
+    }),
+    repeat()
   );
 
   @Effect()
@@ -63,10 +85,16 @@ export class AuthEffect {
     map((user) => {
       if (user) {
         const { password, ...details } = user;
+        this.toastService.showToast(SuccessMessages.register);
+        this.router.navigate(["/"]);
         return new authActions.LoginSuccess(details);
       } else {
         return new authActions.RegisterFail("Username is already taken.");
       }
+    }),
+    catchError((error) => {
+      this.toastService.showToast(ErrorMessages.customError(error.message));
+      return of(new authActions.RegisterFail(error));
     })
   );
 
@@ -74,6 +102,7 @@ export class AuthEffect {
   logout$ = this.actions$.pipe(
     ofType(authActions.LOGOUT),
     tap(() => {
+      this.toastService.showToast(InfoMessages.logout);
       this.clearUserSession();
       this.router.navigate(["/"]);
     })

@@ -1,8 +1,9 @@
-<div class="toast" role="alert" [id]="toastId" aria-live="assertive" aria-atomic="true" data-autohide="false">
+<div class="toast" role="alert" [id]="toastId" aria-live="assertive" aria-atomic="true" data-delay="1500">
   <ng-container *ngIf="toastData$ | async as toast">
     <div class="toast-header text-light" [ngClass]="{
       'bg-success': toast.type === 'success',
-      'bg-danger': toast.type === 'error'
+      'bg-danger': toast.type === 'error',
+      'bg-primary': toast.type === 'info'
     }">
       <strong class="mr-auto">
         <!-- Toast Title -->

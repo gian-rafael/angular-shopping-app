@@ -11,13 +11,20 @@ import * as authSelectors from "../.././../auth/store/selectors/auth.selector";
 
 import { WishlistService } from "../../services/wishlist.service";
 import { AuthState } from "src/app/auth/store";
+import { ToastService } from "src/app/toast.service";
+import {
+  ErrorMessages,
+  InfoMessages,
+  SuccessMessages,
+} from "src/app/components/toast/toast.constants";
 
 @Injectable()
 export class WishlistEffect {
   constructor(
     private actions$: Actions,
     private wishlistService: WishlistService,
-    private store: Store<AuthState>
+    private store: Store<AuthState>,
+    private toastService: ToastService
   ) {}
 
   @Effect()
@@ -48,8 +55,14 @@ export class WishlistEffect {
         )
       )
     ),
-    map((wishlistItem) => new wishlistActions.AddWishlistSuccess(wishlistItem)),
-    catchError((error) => of(new wishlistActions.AddWishlistFail(error))),
+    map((wishlistItem) => {
+      this.toastService.showToast(SuccessMessages.addToWishlist);
+      return new wishlistActions.AddWishlistSuccess(wishlistItem);
+    }),
+    catchError((error) => {
+      this.toastService.showToast(ErrorMessages.customError(error.message));
+      return of(new wishlistActions.AddWishlistFail(error));
+    }),
     repeat()
   );
 
@@ -58,8 +71,14 @@ export class WishlistEffect {
     ofType(wishlistActions.REMOVE_WISHLIST),
     switchMap((action: wishlistActions.RemoveWishlist) =>
       this.wishlistService.removeWishlist(action.payload).pipe(
-        map(() => new wishlistActions.RemoveWishlistSuccess(action.payload)),
-        catchError((error) => of(new wishlistActions.RemoveWishlistFail(error)))
+        map(() => {
+          this.toastService.showToast(InfoMessages.removeFromWishlist);
+          return new wishlistActions.RemoveWishlistSuccess(action.payload);
+        }),
+        catchError((error) => {
+          this.toastService.showToast(ErrorMessages.customError(error.message));
+          return of(new wishlistActions.RemoveWishlistFail(error));
+        })
       )
     )
   );

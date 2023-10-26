@@ -16,6 +16,11 @@ import { Order, Transaction } from "../../models/transaction";
 import { Product } from "../../models/product";
 import { Router } from "@angular/router";
 import { ToastService } from "src/app/toast.service";
+import {
+  ErrorMessages,
+  InfoMessages,
+  SuccessMessages,
+} from "src/app/components/toast/toast.constants";
 
 @Injectable()
 export class CartEffect {
@@ -33,7 +38,10 @@ export class CartEffect {
     switchMap(() => this.authStore.pipe(select(authSelectors.getUser))),
     switchMap((user) => this.cartService.getCartItems(user)),
     map((cartItems) => new cartActions.GetCartItemsSuccess(cartItems)),
-    catchError((error) => of(new cartActions.GetCartItemsFail(error))),
+    catchError((error) => {
+      this.toastService.showToast(ErrorMessages.getCartItems);
+      return of(new cartActions.GetCartItemsFail(error));
+    }),
     repeat()
   );
 
@@ -53,14 +61,13 @@ export class CartEffect {
           throw new Error("User Not Logged In");
         }),
         map((cartItem) => {
-          this.toastService.showToast({
-            description: "Item added to cart.",
-            title: "Add To Cart",
-            type: "success",
-          });
+          this.toastService.showToast(SuccessMessages.addToCart);
           return new cartActions.AddToCartSuccess(cartItem);
         }),
-        catchError((error) => of(new cartActions.AddToCartFail(error)))
+        catchError((error) => {
+          this.toastService.showToast(ErrorMessages.customError(error.message));
+          return of(new cartActions.AddToCartFail(error));
+        })
       )
     ),
     repeat()
@@ -71,8 +78,14 @@ export class CartEffect {
     ofType(cartActions.REMOVE_FROM_CART),
     switchMap((action: cartActions.RemoveFromCart) =>
       this.cartService.removeFromCart(action.payload).pipe(
-        map(() => new cartActions.RemoveFromCartSuccess(action.payload)),
-        catchError((error) => of(new cartActions.RemoveFromCartFail(error)))
+        map(() => {
+          this.toastService.showToast(InfoMessages.removeFromCart);
+          return new cartActions.RemoveFromCartSuccess(action.payload);
+        }),
+        catchError((error) => {
+          this.toastService.showToast(ErrorMessages.removeFromCart);
+          return of(new cartActions.RemoveFromCartFail(error));
+        })
       )
     ),
     repeat()
@@ -113,8 +126,15 @@ export class CartEffect {
       return this.cartService
         .placeOrder(transaction, ids, updatedProducts)
         .pipe(
-          switchMap(() => of(new cartActions.CheckoutSuccess(ids))),
-          catchError((error) => of(new cartActions.CheckoutFail(error)))
+          map(() => {
+            this.toastService.showToast(SuccessMessages.checkout);
+            return new cartActions.CheckoutSuccess(ids);
+          }),
+          catchError((error) => {
+            console.log(error.message);
+            this.toastService.showToast(ErrorMessages.checkout);
+            return of(new cartActions.CheckoutFail(error));
+          })
         );
     })
   );

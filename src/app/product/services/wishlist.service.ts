@@ -27,7 +27,7 @@ export class WishlistService {
           (item) => item.productId === wishlistItem.productId
         );
         if (existing) {
-          throw new Error("Item already exists");
+          throw new Error("Item already in wishlist.");
         }
         return this.http.post<WishlistItem>(
           `${this.WISHLIST_ENDPOINT}`,

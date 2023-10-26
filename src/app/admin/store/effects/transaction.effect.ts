@@ -7,12 +7,15 @@ import { switchMap, map, catchError, repeat } from "rxjs/operators";
 
 import * as transactionActions from "../actions/transaction.action";
 import { TransactionService } from "../../services/transaction.service";
+import { ToastService } from "src/app/toast.service";
+import { ErrorMessages } from "src/app/components/toast/toast.constants";
 
 @Injectable({ providedIn: "root" })
 export class TransactionEffect {
   constructor(
     private actions$: Actions,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private toastService: ToastService
   ) {}
 
   @Effect()
@@ -24,9 +27,10 @@ export class TransactionEffect {
           (transactions) =>
             new transactionActions.GetTransactionsSuccess(transactions)
         ),
-        catchError((error) =>
-          of(new transactionActions.GetTransactionsFail(error))
-        )
+        catchError((error) => {
+          this.toastService.showToast(ErrorMessages.customError(error.message));
+          return of(new transactionActions.GetTransactionsFail(error));
+        })
       )
     ),
     repeat()

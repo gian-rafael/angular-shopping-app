@@ -5,8 +5,6 @@ import { Store, select } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { switchMap, map, take, tap } from "rxjs/operators";
 
-import { CartState } from "../../store/reducers/cart.reducer";
-import { WishlistState } from "./../../store/reducers/wishlist.reducer";
 import * as cartActions from "../../store/actions/cart.action";
 import * as wishlistActions from "../../store/actions/wishlist.action";
 import * as selectors from "../../store/selectors/cart.selector";

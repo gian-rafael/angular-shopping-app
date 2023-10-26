@@ -8,7 +8,8 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item" *ngIf="userRole !== 'admin'">
-        <a routerLink="/" class="nav-link">Products</a>
+        <a routerLink="/home" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="text-light"
+          class="nav-link">Products</a>
       </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -28,14 +29,16 @@
         <!-- If user is admin -->
         <ng-container *ngIf="userRole === 'admin'">
           <li class="nav-item" *ngFor="let route of adminRoutes">
-            <a class="nav-link" [routerLink]="route.path">{{ route.name }}</a>
+            <a class="nav-link" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="text-light"
+              [routerLink]="route.path">{{ route.name }}</a>
           </li>
         </ng-container>
 
         <!-- If user is not admin -->
         <ng-container *ngIf="userRole === 'user'">
           <li class="nav-item" *ngFor="let route of userRoutes">
-            <a class="nav-link" [routerLink]="route.path">{{ route.name }}</a>
+            <a class="nav-link" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="text-light"
+              [routerLink]="route.path">{{ route.name }}</a>
           </li>
         </ng-container>
 
@@ -46,10 +49,10 @@
     </ul>
     <ul class="navbar-nav d-flex" *ngIf="!userIsLoggedIn">
       <li class="nav-item">
-        <a routerLink="/auth/login" class="nav-link">Login</a>
+        <a routerLink="/auth/login" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="text-light" class="nav-link">Login</a>
       </li>
       <li class="nav-item">
-        <a routerLink="/auth/register" class="nav-link">Register</a>
+        <a routerLink="/auth/register" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="text-light" class="nav-link">Register</a>
       </li>
     </ul>
   </div>

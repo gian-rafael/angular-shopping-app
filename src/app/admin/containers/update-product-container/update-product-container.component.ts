@@ -10,7 +10,11 @@ import * as productSelectors from "../../../product/store/selectors/product.sele
 import * as productActions from "../../../product/store/actions/product.action";
 
 import { Product } from "src/app/product/models/product";
-import { FormBuilder } from "@angular/forms";
+import {
+  AbstractControl,
+  FormBuilder,
+  Validators,
+} from "@angular/forms";
 
 @Component({
   selector: "update-product-container",
@@ -24,11 +28,17 @@ export class UpdateProductContainerComponent implements OnInit {
 
   form = this.fb.group({
     id: [],
-    name: [""],
-    description: [""],
-    price: [0],
-    image: [""],
-    stocks: [0],
+    name: ["", [Validators.required]],
+    description: ["", [Validators.required]],
+    price: [
+      0,
+      [Validators.required, Validators.min(0), Validators.pattern(/\d+/)],
+    ],
+    image: ["", [Validators.required, this.validUrl]],
+    stocks: [
+      0,
+      [Validators.required, Validators.min(0), Validators.pattern(/\d+/)],
+    ],
   });
 
   constructor(private store: Store<ProductState>, private fb: FormBuilder) {}
@@ -50,5 +60,15 @@ export class UpdateProductContainerComponent implements OnInit {
   handleSubmit() {
     const { image: img, ...product } = this.form.value;
     this.store.dispatch(new productActions.UpdateProduct({ ...product, img }));
+  }
+
+  validUrl(control: AbstractControl) {
+    const value = control.value;
+    try {
+      new URL(value);
+      return null;
+    } catch (_) {
+      return { validUrl: true };
+    }
   }
 }

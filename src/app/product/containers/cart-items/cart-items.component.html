@@ -6,11 +6,16 @@
   </div>
   <ng-container *ngIf="!(loading$ | async); else loading">
     <ng-container *ngIf="cart$ | async as cart">
-      <cart-item *ngFor="let cartItem of cart" [cartItem]="cartItem"
-        [selected]="(selected$ | async).includes(cartItem.id)" (itemSelect)="handleItemSelect($event)"
-        (removeFromCart)="handleRemoveFromCart($event)" (addToWishlist)="handleAddToWishlist($event)"
-        (quantityIncrement)="handleQuantityChange($event)" (quantityDecrement)="handleQuantityChange($event)">
-      </cart-item>
+      <ng-container *ngIf="cart.length > 0; else empty">
+        <cart-item *ngFor="let cartItem of cart" [cartItem]="cartItem"
+          [selected]="(selected$ | async).includes(cartItem.id)" (itemSelect)="handleItemSelect($event)"
+          (removeFromCart)="handleRemoveFromCart($event)" (addToWishlist)="handleAddToWishlist($event)"
+          (quantityIncrement)="handleQuantityChange($event)" (quantityDecrement)="handleQuantityChange($event)">
+        </cart-item>
+      </ng-container>
+      <ng-template #empty>
+        <span class="d-block w-100 text-center text-dark">There are currently no items to show.</span>
+      </ng-template>
     </ng-container>
   </ng-container>
   <ng-template #loading>

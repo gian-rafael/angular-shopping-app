@@ -2,47 +2,54 @@
   <!-- Name -->
   <div class="form-group mb-1">
     <label>Product Name</label>
-    <input type="text" [class.border-danger]="false" class="form-control" formControlName="name">
+    <input type="text" [class.border-danger]="requiredName" class="form-control" formControlName="name">
     <small class="text-danger">
       <span>&nbsp;</span>
-      <span *ngIf="false">This field is required.</span>
+      <span *ngIf="requiredName">This field is required.</span>
     </small>
   </div>
   <!-- Description -->
   <div class="form-group mb-1">
     <label>Product Description</label>
-    <textarea type="text" [class.border-danger]="false" class="form-control" formControlName="description">
+    <textarea type="text" [class.border-danger]="requiredDescription" class="form-control"
+      formControlName="description">
   </textarea>
     <small class="text-danger">
       <span>&nbsp;</span>
-      <span *ngIf="false">This field is required.</span>
+      <span *ngIf="requiredDescription">This field is required.</span>
     </small>
   </div>
   <!-- Price -->
   <div class="form-group mb-1">
     <label>Price</label>
-    <input type="number" [class.border-danger]="false" class="form-control" formControlName="price">
+    <input type="number" [class.border-danger]="requiredPrice || invalidPrice" class="form-control"
+      formControlName="price">
     <small class="text-danger">
       <span>&nbsp;</span>
-      <span *ngIf="false">This field is required.</span>
+      <span *ngIf="requiredPrice">This field is required.</span>
+      <span *ngIf="invalidPrice && !requiredPrice">Invalid Price.</span>
     </small>
   </div>
   <!-- Image -->
   <div class="form-group mb-1">
     <label>Image</label>
-    <input type="text" [class.border-danger]="false" class="form-control" formControlName="image">
+    <input type="text" [class.border-danger]="validImageUrl || requiredImage" class="form-control"
+      formControlName="image">
     <small class="text-danger">
       <span>&nbsp;</span>
-      <span *ngIf="false">This field is required.</span>
+      <span *ngIf="requiredImage">This field is required.</span>
+      <span *ngIf="validImageUrl && !requiredImage">Invalid image url</span>
     </small>
   </div>
   <!-- Stocks -->
   <div class="form-group mb-1">
     <label>Stocks</label>
-    <input type="number" [class.border-danger]="false" class="form-control" formControlName="stocks">
+    <input type="number" [class.border-danger]="invalidStocks || requiredStocks" class="form-control"
+      formControlName="stocks">
     <small class="text-danger">
       <span>&nbsp;</span>
-      <span *ngIf="false">This field is required.</span>
+      <span *ngIf="requiredStocks">This field is required.</span>
+      <span *ngIf="invalidStocks && !requiredStocks">Invalid Stock Count</span>
     </small>
   </div>
   <button type="submit" class="btn btn-primary w-100" [disabled]=" form.invalid || form.pending">Save</button>
