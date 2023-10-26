@@ -32,13 +32,13 @@ export class ProductFormComponent implements OnInit {
 
   get requiredImage() {
     const control = this.form.get("image");
-    return control.hasError("required") && control.dirty;
+    return control.hasError("required") && (control.touched || control.dirty);
   }
 
   get validImageUrl() {
     const control = this.form.get("image");
     console.log(control.errors);
-    return control.hasError("validUrl") && control.dirty;
+    return control.hasError("validUrl") && (control.touched || control.dirty);
   }
 
   get requiredStocks() {
