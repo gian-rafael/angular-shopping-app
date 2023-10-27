@@ -66,6 +66,7 @@ export class InventoryContainerComponent implements OnInit, AfterViewInit {
     "Description",
     "Price",
     "Stocks",
+    "Actions"
   ];
 
   ngOnInit() {
