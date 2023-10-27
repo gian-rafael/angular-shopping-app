@@ -135,7 +135,11 @@ export class CartEffect {
             this.toastService.showToast(
               ErrorMessages.customError(error.message)
             );
-            return of(new cartActions.CheckoutFail(error));
+            return of(
+              new cartActions.CheckoutFail(error),
+              new productActions.GetProducts(),
+              new cartActions.SelectForCheckout([])
+            );
           })
         );
     })
