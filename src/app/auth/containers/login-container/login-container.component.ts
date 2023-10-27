@@ -6,7 +6,9 @@ import { Observable } from "rxjs";
 
 import { AppAuthState } from "../../store";
 import { Login } from "../../store/actions";
+
 import * as selectors from "../../store/selectors";
+import * as actions from "../../store/actions";
 
 @Component({
   selector: "app-login-container",
@@ -39,6 +41,7 @@ export class LoginContainerComponent implements OnInit {
   constructor(private fb: FormBuilder, private store: Store<AppAuthState>) {}
 
   ngOnInit() {
+    this.store.dispatch(new actions.AuthInit());
     this.isLoggingIn$ = this.store.pipe(select(selectors.getIsLoggingIn));
     this.hasError$ = this.store.pipe(select(selectors.getHasError));
     this.errors$ = this.store.pipe(select(selectors.getErrors));
