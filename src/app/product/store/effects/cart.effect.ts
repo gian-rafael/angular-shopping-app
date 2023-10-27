@@ -3,13 +3,14 @@ import { Injectable } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 
-import { of } from "rxjs";
+import { EMPTY, of } from "rxjs";
 import { switchMap, map, catchError, repeat } from "rxjs/operators";
 
 import * as fromAuthStore from "../../../auth/store/reducers";
 import * as authSelectors from "../../../auth/store/selectors";
 
 import * as cartActions from "../actions/cart.action";
+import * as productActions from "../actions/product.action";
 
 import { CartService } from "../../services/cart.service";
 import { Order, Transaction } from "../../models/transaction";
@@ -131,8 +132,9 @@ export class CartEffect {
             return new cartActions.CheckoutSuccess(ids);
           }),
           catchError((error) => {
-            console.log(error.message);
-            this.toastService.showToast(ErrorMessages.checkout);
+            this.toastService.showToast(
+              ErrorMessages.customError(error.message)
+            );
             return of(new cartActions.CheckoutFail(error));
           })
         );
