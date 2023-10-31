@@ -37,7 +37,6 @@ export class ProductFormComponent implements OnInit {
 
   get validImageUrl() {
     const control = this.form.get("image");
-    console.log(control.errors);
     return control.hasError("validUrl") && (control.touched || control.dirty);
   }
 

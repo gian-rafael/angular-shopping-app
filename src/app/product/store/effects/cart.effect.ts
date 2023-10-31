@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Store, select } from "@ngrx/store";
 import { Actions, Effect, ofType } from "@ngrx/effects";
 
-import { EMPTY, of } from "rxjs";
+import { of } from "rxjs";
 import { switchMap, map, catchError, repeat } from "rxjs/operators";
 
 import * as fromAuthStore from "../../../auth/store/reducers";
