@@ -1,24 +1,27 @@
 @import "node_modules/bootstrap/scss/bootstrap";
 
 :host {
-  @extend .col-6;
-  @extend .col-lg-4;
+  @extend .col-6, .col-lg-4, .pl-0, .mb-2;
 
   .card {
-    min-height: 24rem;
-    
+    // min-height: 24rem;
+
     .product-image {
       max-height: 150px;
       width: 100%;
       object-fit: scale-down;
     }
 
-    .product-description {
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
+    .product-price {
+      color: #00000099;
     }
+
+    // .product-description {
+    // overflow: hidden;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 2;
+    // line-clamp: 2;
+    // }
   }
 
   .sold-out {

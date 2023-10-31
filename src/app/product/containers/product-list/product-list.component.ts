@@ -12,7 +12,7 @@ import * as fromAuth from "../../../auth/store/reducers";
 import * as authSelectors from "../../../auth/store/selectors/auth.selector";
 
 import { Product } from "../../models/product";
-import { AddToCartRequest } from "../../components/product-item/product-item.component";
+import { AddToCartRequest } from "../../models/cart";
 
 @Component({
   selector: "product-list",

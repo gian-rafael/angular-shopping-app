@@ -5,7 +5,7 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import { UserRole } from "src/app/auth/models/user";
+import { UserDetails, UserRole } from "src/app/auth/models/user";
 
 interface NavRoute {
   name: string;
@@ -19,7 +19,7 @@ interface NavRoute {
 })
 export class NavbarComponent {
   @Input() userIsLoggedIn: boolean = false;
-  @Input() userRole: UserRole;
+  @Input() user: UserDetails;
   @Output() logout = new EventEmitter();
 
   readonly userRoutes: NavRoute[] = [

@@ -9,7 +9,7 @@ import { AuthInit } from "./auth/store/actions";
 
 import * as authSelectors from "./auth/store/selectors";
 import * as authActions from "./auth/store/actions";
-import { UserRole } from "./auth/models/user";
+import { UserDetails, UserRole } from "./auth/models/user";
 
 @Component({
   selector: "app-root",
@@ -17,7 +17,7 @@ import { UserRole } from "./auth/models/user";
 })
 export class AppComponent implements OnInit {
   userIsLoggedIn$: Observable<boolean>;
-  userRole$: Observable<UserRole>;
+  user$: Observable<UserDetails>;
 
   constructor(private store: Store<AppAuthState>) {}
 
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
     });
     this.store.dispatch(new AuthInit());
     this.userIsLoggedIn$ = this.store.pipe(select(authSelectors.getIsLoggedIn));
-    this.userRole$ = this.store.pipe(select(authSelectors.getUserRole));
+    this.user$ = this.store.pipe(select(authSelectors.getUser));
   }
 
   handleLogout() {
