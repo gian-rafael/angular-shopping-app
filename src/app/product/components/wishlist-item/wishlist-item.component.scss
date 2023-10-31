@@ -1,11 +1,11 @@
 .cart-item {
   &-img {
     max-height: 150px;
-    max-width: 150px;
     object-fit: scale-down;
     height: 100%;
+    width: 150px;
     overflow: hidden;
-    object-position: top;
+    object-position: top left;
     position: relative;
   }
 }

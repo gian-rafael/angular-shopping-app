@@ -1,25 +1,60 @@
 <div
-  class="d-flex flex-column flex-lg-row justify-content-between aligm-items-stretch rounded-lg border border-dark pr-4 overflow-hidden mb-4"
-  [class.selected-item]="selected" (click)="onToggleSelect()">
-  <div class="cart-item-details d-flex flex-column flex-lg-row align-items-start">
-    <img [src]="product.img" class="cart-item-img" [alt]="product.name">
-    <div class="d-flex flex-column ml-4 py-4 col">
-      <h3 class="m-0">{{product.name}}</h3>
-      <h5 class="product-description" style="-webkit-box-orient: vertical;">{{product.description}}</h5>
-      <quantity-selector [value]="itemQuantity" [max]="product.stocks" [onIncrement]="handleIncrement"
-        [onDecrement]="handleDecrement" [isSoldOut]="isSoldOut"></quantity-selector>
+  class="d-flex flex-column flex-lg-row justify-content-between aligm-items-stretch rounded-lg border border-dark overflow-hidden mb-4"
+  [class.selected-item]="selected"
+  (click)="onToggleSelect()"
+>
+  <div
+    class="cart-item-details d-flex flex-column flex-lg-row align-items-start"
+  >
+    <img [src]="product.img" class="cart-item-img" [alt]="product.name" />
+    <div class="d-flex flex-column ml-lg-4 py-4 col">
+      <h3 class="m-0">{{ product.name }}</h3>
+      <h5 class="text-justify">
+        {{ description }}
+        <a
+          *ngIf="truncatedDescription"
+          class="d-inline m-0 w-100 text-align-left btn btn-link text-nowrap p-0"
+          (click)="onExpandDescription($event)"
+        >
+          See {{ expandDescription ? "Less" : "More" }}
+        </a>
+      </h5>
+      <quantity-selector
+        [value]="itemQuantity"
+        [max]="product.stocks"
+        [onIncrement]="handleIncrement"
+        [onDecrement]="handleDecrement"
+        [isSoldOut]="isSoldOut"
+      ></quantity-selector>
       <div class="mt-2">
-        <button (click)="onAddToWishlist($event)" data-toggle="tooltip" data-placement="top" class="btn text-primary"
-          title="Add To Wishlist"><i class="fa-regular fa-bookmark"></i></button>
-        <button (click)="onRemoveFromCart($event)" data-toggle="tooltip" data-placement="top" class="btn text-danger"
-          title="Remove From Cart"><i class="fa-solid fa-trash"></i></button>
+        <button
+          (click)="onAddToWishlist($event)"
+          data-toggle="tooltip"
+          data-placement="top"
+          class="btn text-primary"
+          title="Add To Wishlist"
+        >
+          <i class="fa-regular fa-bookmark"></i>
+        </button>
+        <button
+          (click)="onRemoveFromCart($event)"
+          data-toggle="tooltip"
+          data-placement="top"
+          class="btn text-danger"
+          title="Remove From Cart"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column justify-content-between align-items-end py-4">
+  <div
+    class="d-flex flex-column justify-content-between align-items-end py-4 px-3"
+  >
     <h5 class="text-dark m-0">{{ product.price | currency : "PHP" }}</h5>
     <h6 *ngIf="isSoldOut">Out Of Stock</h6>
-    <h6 *ngIf="qtyError && !isSoldOut" class="text-danger">Item Quantity Exceeds Current Stock. Please decrease item
-      quantity.</h6>
+    <h6 *ngIf="qtyError && !isSoldOut" class="text-danger">
+      Item Quantity Exceeds Current Stock. Please decrease item quantity.
+    </h6>
   </div>
 </div>

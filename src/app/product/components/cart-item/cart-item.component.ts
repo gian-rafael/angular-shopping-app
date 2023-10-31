@@ -15,6 +15,17 @@ export class CartItemComponent implements OnInit {
   @Output() quantityIncrement: EventEmitter<CartItem> = new EventEmitter();
   @Output() quantityDecrement: EventEmitter<CartItem> = new EventEmitter();
 
+  truncatedDescription: boolean;
+  expandDescription = false;
+
+  get description() {
+    const productDescription = this.product.description;
+    if (productDescription.length > 100 && !this.expandDescription) {
+      return productDescription.substring(0, 100) + "...";
+    }
+    return productDescription;
+  }
+
   get itemQuantity() {
     return this.cartItem.qty;
   }
@@ -35,7 +46,9 @@ export class CartItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.truncatedDescription = this.product.description.length > 100;
+  }
 
   onToggleSelect() {
     if (this.qtyError || this.isSoldOut) return;
@@ -68,5 +81,10 @@ export class CartItemComponent implements OnInit {
   onAddToWishlist(event: Event) {
     event.stopPropagation();
     this.addToWishlist.emit(this.cartItem);
+  }
+
+  onExpandDescription(event: Event) {
+    event.stopPropagation();
+    this.expandDescription = !this.expandDescription;
   }
 }

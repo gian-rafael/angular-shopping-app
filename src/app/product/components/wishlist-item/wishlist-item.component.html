@@ -1,19 +1,46 @@
-<div class="d-flex justify-content-between aligm-items-stretch rounded-lg border border-dark pr-4 overflow-hidden mb-4"
-  [class.selected-item]="selected">
-  <div class="cart-item-details d-flex align-items-start">
-    <img [src]="product.img" class="cart-item-img" [alt]="product.name">
-    <div class="d-flex flex-column ml-4 py-4">
-      <h3 class="m-0">{{product.name}}</h3>
-      <h5>{{product.description}}</h5>
+<div
+  class="d-flex flex-column flex-lg-row justify-content-between aligm-items-stretch rounded-lg border border-dark overflow-hidden mb-4"
+  [class.selected-item]="selected"
+>
+  <div
+    class="cart-item-details d-flex flex-column flex-lg-row align-items-start"
+  >
+    <img [src]="product.img" class="cart-item-img" [alt]="product.name" />
+    <div class="d-flex flex-column ml-lg-4 py-4 col">
+      <h3 class="m-0">{{ product.name }}</h3>
+      <h5 class="text-justify">
+        {{ description }}
+        <a
+          *ngIf="truncatedDescription"
+          class="d-inline m-0 w-100 text-align-left btn btn-link text-nowrap p-0"
+          (click)="onExpandDescription()"
+        >
+          See {{ expandDescription ? "Less" : "More" }}
+        </a>
+      </h5>
       <div class="mt-2">
-        <button (click)="onRemoveFromWishlist($event)" data-toggle="tooltip" data-placement="top" class="btn text-danger"
-          title="Remove From Cart"><i class="fa-solid fa-trash"></i></button>
+        <button
+          (click)="onRemoveFromWishlist($event)"
+          data-toggle="tooltip"
+          data-placement="top"
+          class="btn text-danger p-0"
+          title="Remove From Cart"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
       </div>
     </div>
   </div>
-  <div class="d-flex flex-column justify-content-between align-items-center py-4">
+  <div
+    class="d-flex flex-row flex-lg-column justify-content-between align-items-center py-4 px-3"
+  >
     <h5 class="text-dark m-0">{{ product.price | currency : "PHP" }}</h5>
-    <button (click)="onAddToCart()" [disabled]="isOutOfStock" class="btn btn-primary">{{ isOutOfStock ? 'Out of Stock' :
-      'Add to Cart' }}</button>
+    <button
+      (click)="onAddToCart()"
+      [disabled]="isOutOfStock"
+      class="btn btn-primary"
+    >
+      {{ isOutOfStock ? "Out of Stock" : "Add to Cart" }}
+    </button>
   </div>
 </div>

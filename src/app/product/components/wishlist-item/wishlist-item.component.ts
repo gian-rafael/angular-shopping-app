@@ -13,6 +13,17 @@ export class WishlistItemComponent implements OnInit {
   @Output() remove: EventEmitter<WishlistItemDetailed> = new EventEmitter();
   @Output() addToCart: EventEmitter<Product> = new EventEmitter();
 
+  truncatedDescription: boolean;
+  expandDescription = false;
+
+  get description() {
+    const productDescription = this.product.description;
+    if (productDescription.length > 100 && !this.expandDescription) {
+      return productDescription.substring(0, 100) + "...";
+    }
+    return productDescription;
+  }
+
   get product(): Product {
     return this.wishlistItem.product;
   }
@@ -23,7 +34,9 @@ export class WishlistItemComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.truncatedDescription = this.product.description.length > 100;
+  }
 
   onRemoveFromWishlist() {
     this.remove.emit(this.wishlistItem);
@@ -31,5 +44,9 @@ export class WishlistItemComponent implements OnInit {
 
   onAddToCart() {
     this.addToCart.emit(this.product);
+  }
+
+  onExpandDescription() {
+    this.expandDescription = !this.expandDescription;
   }
 }
