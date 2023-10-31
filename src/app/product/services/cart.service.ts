@@ -1,10 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AddToCartRequest } from "../components/product-item/product-item.component";
 
 import { UserDetails } from "src/app/auth/models/user";
 
-import { CartItem } from "../models/cart";
+import { AddToCartRequest, CartItem } from "../models/cart";
 
 import { Observable, forkJoin } from "rxjs";
 import { tap, switchMap, map } from "rxjs/operators";

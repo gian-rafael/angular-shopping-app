@@ -1,6 +1,5 @@
 import { Action } from "@ngrx/store";
-import { AddToCartRequest } from "../../components/product-item/product-item.component";
-import { CartItem, CartItemDetailed } from "../../models/cart";
+import { AddToCartRequest, CartItem, CartItemDetailed } from "../../models/cart";
 
 export const GET_CART_ITEMS = "[Cart] Get cart items";
 export const GET_CART_ITEMS_SUCCESS = "[Cart] Get cart items success";
